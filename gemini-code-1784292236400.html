@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق نطق الكلمات</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 { color: #333; }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 15px 0;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🗣️ مساعد النطق الذكي</h2>
+    <p>اكتب أي كلمة بالإنجليزية أو العربية واضغط على الزر لسماع نطقها</p>
+    
+    <input type="text" id="wordInput" placeholder="اكتب الكلمة هنا...">
+    <br>
+    <button onclick="pronounceWord()">🔊 اسمع النطق</button>
+</div>
+
+<script>
+function pronounceWord() {
+    // جلب النص الذي كتبه المستخدم
+    var word = document.getElementById("wordInput").value;
+    
+    if (word.trim() === "") {
+        alert("الرجاء كتابة كلمة أولاً!");
+        return;
+    }
+
+    // استخدام خاصية النطق المدمجة في المتصفح
+    var speech = new SpeechSynthesisUtterance();
+    speech.text = word;
+    
+    // فحص إذا كانت الكلمة تحتوي على حروف عربية ليغير لغة النطق تلقائياً
+    var arabicPattern = /[\u0600-\u06FF]/;
+    if (arabicPattern.test(word)) {
+        speech.lang = 'ar-SA'; // نطق عربي
+    } else {
+        speech.lang = 'en-US'; // نطق إنجليزي
+    }
+
+    // تشغيل الصوت
+    window.speechSynthesis.speak(speech);
+}
+</script>
+
+</body>
+</html>
