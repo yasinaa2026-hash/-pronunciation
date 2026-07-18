@@ -1,86 +1,307 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق نطق الكلمات</title>
+    <title>NateqFast - Professional English Pronunciation Tool</title>
+    
+    <meta name="description" content="A professional, responsive tool to pronounce English words with custom voices and speed control.">
+    <meta name="keywords" content="pronunciation, english voices, speech synthesis, online tool, NateqFast">
+    
     <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
+            background: var(--bg-gradient);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            padding: 20px;
         }
+
         .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
             text-align: center;
-            max-width: 400px;
+            max-width: 480px;
             width: 100%;
+            transition: transform 0.2s;
         }
-        h2 { color: #333; }
-        input {
-            width: 80%;
-            padding: 10px;
-            margin: 15px 0;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+
+        h2 {
+            color: var(--text-main);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            outline: none;
+            transition: all 0.2s ease;
             text-align: center;
+            color: var(--text-main);
+            background-color: #f9fafb;
         }
+
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .control-panel {
+            background-color: #f9fafb;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 28px;
+            text-align: left;
+        }
+
+        .control-group {
+            margin-bottom: 16px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-main);
+            background-color: #fff;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .speed-val {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 32px;
+            text-align: right;
+        }
+
         button {
-            background-color: #4CAF50;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 16px 32px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
+            border-radius: 14px;
+            transition: all 0.2s ease;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
         }
-        button:hover { background-color: #45a049; }
+
+        button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Responsive optimizations for smaller mobile screens */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+            h2 { font-size: 21px; }
+            input[type="text"] { padding: 14px; font-size: 16px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>🗣️ مساعد النطق الذكي</h2>
-    <p>اكتب أي كلمة بالإنجليزية   واضغط على الزر لسماع نطقها</p>
+    <h2>🗣️ NateqFast Studio</h2>
+    <p class="subtitle">Enter text, select a voice, adjust speed and listen.</p>
     
-    <input type="text" id="wordInput" placeholder="اكتب الكلمة هنا...">
-    <br>
-    <button onclick="pronounceWord()">🔊 اسمع النطق</button>
+    <div class="input-group">
+        <input type="text" id="wordInput" placeholder="Type English text here..." autocomplete="off">
+    </div>
+    
+    <div class="control-panel">
+        <div class="control-group">
+            <label for="voiceSelect">Voice Engine</label>
+            <select id="voiceSelect">
+                <option>Loading available voices...</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="rateRange">Speech Speed</label>
+            <div class="slider-container">
+                <input type="range" id="rateRange" min="0.5" max="2" value="1" step="0.1" oninput="updateSpeedLabel(this.value)">
+                <span class="speed-val" id="speedValue">1.0x</span>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="pronounceWord()">
+        <span>Pronounce Text</span>
+    </button>
 </div>
 
 <script>
-function pronounceWord() {
-    // جلب النص الذي كتبه المستخدم
-    var word = document.getElementById("wordInput").value;
+let synth = window.speechSynthesis;
+let voiceSelect = document.getElementById('voiceSelect');
+let speedValue = document.getElementById('speedValue');
+let voices = [];
+
+function updateSpeedLabel(val) {
+    speedValue.textContent = parseFloat(val).toFixed(1) + 'x';
+}
+
+function populateVoiceList() {
+    if (typeof synth === 'undefined') return;
     
-    if (word.trim() === "") {
-        alert("الرجاء كتابة كلمة أولاً!");
+    voices = synth.getVoices();
+    
+    // Fix for some mobile browsers returning empty list on first load
+    if (voices.length === 0) return;
+
+    voiceSelect.innerHTML = '';
+    
+    // Filter and display English voices first for better user experience
+    let englishVoices = voices.filter(v => v.lang.includes('en'));
+    let otherVoices = voices.filter(v => !v.lang.includes('en'));
+    let sortedVoices = [...englishVoices, ...otherVoices];
+
+    sortedVoices.forEach((voice) => {
+        let option = document.createElement('option');
+        option.textContent = `${voice.name} (${voice.lang})`;
+        
+        // Save the original index relative to the main voices array
+        option.value = voices.indexOf(voice);
+        
+        if (voice.lang.includes('en-US') && voice.name.includes('Natural')) {
+            option.selected = true;
+        } else if (voice.lang.includes('en-US') && !voiceSelect.value) {
+            option.selected = true;
+        }
+        
+        voiceSelect.appendChild(option);
+    });
+}
+
+// Fixed synchronization bugs for mobile loads
+populateVoiceList();
+if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = populateVoiceList;
+}
+
+// Periodic re-check to fix delayed voice loads on mobile devices
+let retryCount = 0;
+const voiceInterval = setInterval(() => {
+    if (voices.length > 0 || retryCount > 5) {
+        clearInterval(voiceInterval);
+    } else {
+        populateVoiceList();
+        retryCount++;
+    }
+}, 500);
+
+function pronounceWord() {
+    var word = document.getElementById("wordInput").value;
+    var speed = document.getElementById("rateRange").value;
+    
+    if (!word.trim()) {
+        alert("Please enter some text first!");
         return;
     }
 
-    // استخدام خاصية النطق المدمجة في المتصفح
+    // Bug Fix: Cancel ongoing speech before triggering a new one to avoid queuing bugs
+    synth.cancel();
+
     var speech = new SpeechSynthesisUtterance();
     speech.text = word;
-    
-    // فحص إذا كانت الكلمة تحتوي على حروف عربية ليغير لغة النطق تلقائياً
-    var arabicPattern = /[\u0600-\u06FF]/;
-    if (arabicPattern.test(word)) {
-        speech.lang = 'ar-SA'; // نطق عربي
-    } else {
-        speech.lang = 'en-US'; // نطق إنجليزي
+    speech.rate = speed;
+
+    if (voices.length > 0 && voiceSelect.value) {
+        speech.voice = voices[voiceSelect.value];
     }
 
-    // تشغيل الصوت
-    window.speechSynthesis.speak(speech);
+    synth.speak(speech);
 }
 </script>
 
