@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NateqFast - Professional English Pronunciation Tool</title>
+    <title>NateqFast Studio - Pronounce & Context</title>
     
-    <meta name="description" content="A professional, responsive tool to pronounce English words with custom voices and speed control.">
-    <meta name="keywords" content="pronunciation, english voices, speech synthesis, online tool, NateqFast">
+    <meta name="description" content="A professional English pronunciation tool with smart example sentences.">
+    <meta name="keywords" content="pronunciation, english voices, sentences, learn english, NateqFast">
     
     <style>
         :root {
@@ -37,40 +37,34 @@
 
         .container {
             background-color: var(--card-bg);
-            padding: 40px 30px;
+            padding: 35px 25px;
             border-radius: 24px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
             text-align: center;
             max-width: 480px;
             width: 100%;
-            transition: transform 0.2s;
         }
 
         h2 {
             color: var(--text-main);
             font-size: 24px;
             font-weight: 700;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
+            margin-bottom: 4px;
         }
 
         .subtitle {
             color: var(--text-muted);
             font-size: 14px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .input-group {
-            position: relative;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 16px 20px;
+            padding: 16px;
             font-size: 18px;
             border: 2px solid var(--border-color);
             border-radius: 14px;
@@ -87,17 +81,50 @@
             box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
         }
 
+        /* صندوق استعراض الجملة التعليمية */
+        .sentence-box {
+            width: 100%;
+            min-height: 100px;
+            border-radius: 16px;
+            background-color: #f8fafc;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #e2e8f0;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .sentence-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .sentence-text {
+            color: #334155;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
         .control-panel {
             background-color: #f9fafb;
-            padding: 20px;
+            padding: 18px;
             border-radius: 16px;
             border: 1px solid var(--border-color);
-            margin-bottom: 28px;
+            margin-bottom: 20px;
             text-align: left;
         }
 
         .control-group {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .control-group:last-child {
@@ -105,30 +132,22 @@
         }
 
         label {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         select {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid var(--border-color);
             border-radius: 10px;
             font-size: 14px;
-            color: var(--text-main);
             background-color: #fff;
             outline: none;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        select:focus {
-            border-color: var(--primary-color);
         }
 
         .slider-container {
@@ -140,7 +159,6 @@
         input[type="range"] {
             flex: 1;
             accent-color: var(--primary-color);
-            cursor: pointer;
         }
 
         .speed-val {
@@ -148,45 +166,48 @@
             font-weight: 600;
             color: var(--primary-color);
             min-width: 32px;
-            text-align: right;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
         }
 
         button {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 16px 32px;
+            padding: 16px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             border-radius: 14px;
             transition: all 0.2s ease;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
+            flex: 1;
             box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
         }
 
         button:hover {
             background-color: var(--primary-hover);
             transform: translateY(-1px);
-            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
         }
 
-        button:active {
-            transform: translateY(0);
+        button.btn-secondary {
+            background-color: #10b981;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+        }
+        button.btn-secondary:hover {
+            background-color: #059669;
         }
 
-        /* Responsive optimizations for smaller mobile screens */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 480px) {
-            .container {
-                padding: 30px 20px;
-                border-radius: 20px;
-            }
-            h2 { font-size: 21px; }
-            input[type="text"] { padding: 14px; font-size: 16px; }
+            .container { padding: 25px 15px; }
+            .btn-group { flex-direction: column; }
         }
     </style>
 </head>
@@ -194,10 +215,15 @@
 
 <div class="container">
     <h2>🗣️ NateqFast Studio</h2>
-    <p class="subtitle">Enter text, select a voice, adjust speed and listen.</p>
+    <p class="subtitle">Enter a word, explore how it's used in a sentence, and listen.</p>
     
     <div class="input-group">
-        <input type="text" id="wordInput" placeholder="Type English text here..." autocomplete="off">
+        <input type="text" id="wordInput" placeholder="Type a word (e.g., Apple, Car, Happy)..." autocomplete="off">
+    </div>
+
+    <div class="sentence-box" id="sentenceBox">
+        <div class="sentence-title" id="boxTitle">Example Sentence</div>
+        <div class="sentence-text" id="sentenceText">Your example sentence will appear here! 💡</div>
     </div>
     
     <div class="control-panel">
@@ -217,16 +243,34 @@
         </div>
     </div>
 
-    <button onclick="pronounceWord()">
-        <span>Pronounce Text</span>
-    </button>
+    <div class="btn-group">
+        <button onclick="processInput()">🔊 Pronounce Word</button>
+        <button class="btn-secondary" onclick="pronounceSentence()">📖 Listen to Sentence</button>
+    </div>
 </div>
 
 <script>
 let synth = window.speechSynthesis;
 let voiceSelect = document.getElementById('voiceSelect');
 let speedValue = document.getElementById('speedValue');
+let sentenceText = document.getElementById('sentenceText');
+let sentenceBox = document.getElementById('sentenceBox');
 let voices = [];
+let currentGeneratedSentence = "";
+
+// قاموس مدمج يحتوي على جمل ممتازة للكلمات الأكثر شيوعاً
+const dictionaryBase = {
+    "apple": "I eat a fresh apple every single morning.",
+    "car": "He drives a beautiful blue car to work.",
+    "cat": "The small cat is sleeping peacefully on the sofa.",
+    "dog": "A loyal dog always guards the house.",
+    "happy": "She felt very happy after passing the exam.",
+    "book": "Reading an interesting book expands your mind.",
+    "school": "Children go to school to learn new things.",
+    "water": "Please drink enough water every day to stay healthy.",
+    "family": "Spending time with family is very important.",
+    "friend": "A true friend will always stand by your side."
+};
 
 function updateSpeedLabel(val) {
     speedValue.textContent = parseFloat(val).toFixed(1) + 'x';
@@ -234,15 +278,10 @@ function updateSpeedLabel(val) {
 
 function populateVoiceList() {
     if (typeof synth === 'undefined') return;
-    
     voices = synth.getVoices();
-    
-    // Fix for some mobile browsers returning empty list on first load
     if (voices.length === 0) return;
 
     voiceSelect.innerHTML = '';
-    
-    // Filter and display English voices first for better user experience
     let englishVoices = voices.filter(v => v.lang.includes('en'));
     let otherVoices = voices.filter(v => !v.lang.includes('en'));
     let sortedVoices = [...englishVoices, ...otherVoices];
@@ -250,58 +289,72 @@ function populateVoiceList() {
     sortedVoices.forEach((voice) => {
         let option = document.createElement('option');
         option.textContent = `${voice.name} (${voice.lang})`;
-        
-        // Save the original index relative to the main voices array
         option.value = voices.indexOf(voice);
-        
-        if (voice.lang.includes('en-US') && voice.name.includes('Natural')) {
-            option.selected = true;
-        } else if (voice.lang.includes('en-US') && !voiceSelect.value) {
+        if (voice.lang.includes('en-US')) {
             option.selected = true;
         }
-        
         voiceSelect.appendChild(option);
     });
 }
 
-// Fixed synchronization bugs for mobile loads
 populateVoiceList();
 if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
     speechSynthesis.onvoiceschanged = populateVoiceList;
 }
 
-// Periodic re-check to fix delayed voice loads on mobile devices
-let retryCount = 0;
-const voiceInterval = setInterval(() => {
-    if (voices.length > 0 || retryCount > 5) {
-        clearInterval(voiceInterval);
-    } else {
-        populateVoiceList();
-        retryCount++;
-    }
-}, 500);
-
-function pronounceWord() {
-    var word = document.getElementById("wordInput").value;
-    var speed = document.getElementById("rateRange").value;
+// دالة ذكية لتوليد أو جلب جملة للكلمة
+function generateSentence(word) {
+    let cleanWord = word.trim().toLowerCase();
     
-    if (!word.trim()) {
-        alert("Please enter some text first!");
-        return;
+    // إذا كانت الكلمة في القاموس المدمج نعرض جملتها
+    if (dictionaryBase[cleanWord]) {
+        return dictionaryBase[cleanWord];
+    } else {
+        // إذا لم تكن موجودة، نقوم بصناعة جملة مرنة تلقائياً
+        return `Can you give me an example of how to use "${word}" in everyday communication?`;
     }
+}
 
-    // Bug Fix: Cancel ongoing speech before triggering a new one to avoid queuing bugs
+function speakText(text) {
+    var speed = document.getElementById("rateRange").value;
     synth.cancel();
 
     var speech = new SpeechSynthesisUtterance();
-    speech.text = word;
+    speech.text = text;
     speech.rate = speed;
 
     if (voices.length > 0 && voiceSelect.value) {
         speech.voice = voices[voiceSelect.value];
     }
-
     synth.speak(speech);
+}
+
+// عند ضغط زر نطق الكلمة
+function processInput() {
+    var word = document.getElementById("wordInput").value;
+    
+    if (!word.trim()) {
+        alert("Please type a word first!");
+        return;
+    }
+
+    // توليد وعرض الجملة في المربع
+    currentGeneratedSentence = generateSentence(word);
+    sentenceText.textContent = currentGeneratedSentence;
+    sentenceBox.style.borderColor = "#4f46e5";
+
+    // نطق الكلمة نفسها فقط
+    speakText(word);
+}
+
+// عند ضغط زر نطق الجملة الكاملة
+function pronounceSentence() {
+    if (!currentGeneratedSentence) {
+        alert("Please enter a word and generate a sentence first!");
+        return;
+    }
+    // نطق الجملة المعروضة كاملة
+    speakText(currentGeneratedSentence);
 }
 </script>
 
